@@ -12,10 +12,3 @@
       command: "docker logs {{ item }}"
       with_items: "{{ running_containers.stdout_lines }}"
       register: container_logs
-
-   # - name: Display logs of each container
-   #   debug:
-   #     msg: 
-   #       - "Logs for {{ item.item }}:"
-   #       - "{{ item.stdout }}"
-   #   with_items: "{{ container_logs.results }}"
