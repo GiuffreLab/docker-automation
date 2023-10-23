@@ -4,24 +4,36 @@
   gather_facts: false
 
   tasks:
+    - name: Set docker ps command
+      set_fact:
+        docker_ps_cmd: 'docker ps -a --format "{{.Names}}"'
+
     - name: Get all Docker container names
-      command: 'docker ps -a --format "{{.Names}}"'
+      command: "{{ docker_ps_cmd }}"
       register: docker_containers
 
     - name: Print all Docker container names
       debug:
         msg: "{{ docker_containers.stdout_lines }}"
 
+    - name: Set docker images command
+      set_fact:
+        docker_images_cmd: 'docker images --format "{{.Repository}}:{{.Tag}}"'
+
     - name: Get all Docker images
-      command: 'docker images --format "{{.Repository}}:{{.Tag}}"'
+      command: "{{ docker_images_cmd }}"
       register: docker_images
 
     - name: Print all Docker images
       debug:
         msg: "{{ docker_images.stdout_lines }}"
 
+    - name: Set docker networks command
+      set_fact:
+        docker_networks_cmd: 'docker network ls --format "{{.Name}}"'
+
     - name: Get all Docker networks
-      command: 'docker network ls --format "{{.Name}}"'
+      command: "{{ docker_networks_cmd }}"
       register: docker_networks
 
     - name: Print all Docker networks
