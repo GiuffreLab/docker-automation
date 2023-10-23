@@ -8,7 +8,3 @@
   - name: Get container logs
     command: "docker logs {{ container_name }}"
     register: container_logs  # Capture the output of the log command
-
-  - name: Display container logs
-    debug:
-      var: container_logs.stdout_lines  # Display the captured output
