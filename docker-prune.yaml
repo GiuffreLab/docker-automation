@@ -9,6 +9,8 @@
     community.docker.docker_prune:
       containers: true
       images: true
+      images_filters:
+        dangling: false
       networks: true
       volumes: true
     register: prune_result  # Capture the output of prune operation
