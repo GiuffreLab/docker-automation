@@ -6,15 +6,15 @@
   tasks:
   - name: Get Docker Containers Info
     community.docker.docker_container_info:
-      name: "{{ container_name | default(omit) }}"
+      containers: []
     register: containers_info
 
   - name: Get Docker Images Info
     community.docker.docker_image_info:
-      name: "{{ image_name | default(omit) }}"
+      images: []
     register: images_info
 
   - name: Get Docker Networks Info
     community.docker.docker_network_info:
-      name: "{{ network_name | default(omit) }}"
+      networks: []
     register: networks_info
