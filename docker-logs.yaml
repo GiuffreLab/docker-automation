@@ -1,10 +1,21 @@
 ---
-- name: Get logs of a specific Docker container
+- name: Get logs of all running Docker containers
   hosts: all
   gather_facts: false
 
   tasks:
-  
-  - name: Get container logs
-    command: "docker logs {{ container_name }}"
-    register: container_logs  # Capture the output of the log command
+    - name: Get all running Docker container names
+      shell: docker ps --format "{{ '{{' }}.Names{{ '}}' }}"
+      register: running_containers
+
+    - name: Get logs for each container
+      command: "docker logs {{ item }}"
+      with_items: "{{ running_containers.stdout_lines }}"
+      register: container_logs
+
+    - name: Display logs of each container
+      debug:
+        msg: 
+          - "Logs for {{ item.item }}:"
+          - "{{ item.stdout }}"
+      with_items: "{{ container_logs.results }}"
