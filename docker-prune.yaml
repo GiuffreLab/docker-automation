@@ -4,11 +4,15 @@
   gather_facts: false
 
   tasks:
-
+  
   - name: Prune everything
     community.docker.docker_prune:
       containers: yes
       images: yes
       networks: yes
       volumes: yes
-    register: prune_result
+    register: prune_result  # Capture the output of prune operation
+
+  - name: Display prune result
+    debug:
+      var: prune_result  # Display the captured output
