@@ -4,11 +4,11 @@
   gather_facts: false
 
   tasks:
-    - name: Get all Docker container names
-      shell: docker ps -a --format "{{ '{{' }}.Names{{ '}}' }}"
+    - name: Get all Docker containers with names, status, and ports
+      shell: docker ps -a --format "{{ '{{' }}.Names{{ '}}' }} - {{ '{{' }}.Status{{ '}}' }} - {{ '{{' }}.Ports{{ '}}' }}"
       register: docker_containers
 
-    - name: Print all Docker container names
+    - name: Print all Docker containers with names, status, and ports
       debug:
         msg: "{{ docker_containers.stdout_lines }}"
 
@@ -19,11 +19,3 @@
     - name: Print all Docker images
       debug:
         msg: "{{ docker_images.stdout_lines }}"
-
-    - name: Get all Docker networks
-      shell: docker network ls --format "{{ '{{' }}.Name{{ '}}' }}"
-      register: docker_networks
-
-    - name: Print all Docker networks
-      debug:
-        msg: "{{ docker_networks.stdout_lines }}"
