@@ -9,12 +9,24 @@
       name: []
     register: containers_info
 
+  - name: Display Docker Containers Info
+    debug:
+      var: containers_info
+
   - name: Get Docker Images Info
     community.docker.docker_image_info:
       name: []
     register: images_info
 
+  - name: Display Docker Images Info
+    debug:
+      var: images_info
+
   - name: Get Docker Networks Info
     community.docker.docker_network_info:
       name: []
     register: networks_info
+
+  - name: Display Docker Networks Info
+    debug:
+      var: networks_info
