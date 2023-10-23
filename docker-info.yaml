@@ -1,6 +1,6 @@
 ---
 - name: Get Docker Information
-  hosts: localhost
+  hosts: all
   gather_facts: false
 
   tasks:
