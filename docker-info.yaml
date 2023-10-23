@@ -1,0 +1,20 @@
+---
+- name: Gather Docker Containers Info
+  hosts: all
+  gather_facts: false
+
+  tasks:
+  - name: Get Docker Containers Info
+    community.docker.docker_container_info:
+      name: "{{ container_name | default(omit) }}"
+    register: containers_info
+
+  - name: Get Docker Images Info
+    community.docker.docker_image_info:
+      name: "{{ image_name | default(omit) }}"
+    register: images_info
+
+  - name: Get Docker Networks Info
+    community.docker.docker_network_info:
+      name: "{{ network_name | default(omit) }}"
+    register: networks_info
