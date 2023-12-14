@@ -1,0 +1,19 @@
+---
+- name: Get Docker Information
+  hosts: all
+  gather_facts: false
+
+  tasks:
+    - name: Get Information on the Docker container
+      community.docker.docker_container_info:
+        name: "{{ container_name }}"
+      register: docker_container
+
+    - name: Does the Docker container exist?
+      ansible.builtin.debug:
+        msg: "{{ container_name }} {{ 'exists' if docker_container.exists else 'does not exist' }}"
+
+    - name: Get logs for the container
+      ansible.builtin.command: "docker logs {{ container_name }}"
+      with_items: "{{ docker_container.stdout_lines }}"
+      register: container_logs
