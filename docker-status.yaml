@@ -15,5 +15,4 @@
 
     - name: Get logs for the container
       ansible.builtin.command: "docker logs {{ container_name }}"
-      register: container_logs
       when: docker_container.exists
